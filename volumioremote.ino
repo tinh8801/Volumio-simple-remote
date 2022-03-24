@@ -41,8 +41,9 @@ void setup() {
   Serial.println(F("Ket noi thanh cong (^-^)"));
   Serial.println(F("======================================================"));
   }else{
-  Serial.println(F("Ket noi that bai (#_#)"));
   digitalWrite(LED_BUILTIN,LOW);
+  Serial.println(F("Ket noi that bai (#_#)"));
+  
   }
   pinMode(PLAY_PIN,INPUT_PULLUP);//thiet lap cac chan I/O la ngo vao  
   pinMode(STOP_PIN,INPUT_PULLUP);
@@ -55,6 +56,11 @@ void setup() {
 //    Serial.println("connection failed");
 //    return;
 //  }
+}
+void ErrorLed(){//Led sang roi tat bao cac loi lien quan ket noi
+    digitalWrite(LED_BUILTIN,LOW);
+    delay(1000);
+    digitalWrite(LED_BUILTIN,HIGH);
 }
 
 void loop() 
@@ -70,11 +76,13 @@ void loop()
     if (httpCode > 0) {
       String payload = http.getString();
       Serial.println(payload);
+    }else{
+      ErrorLed();
     }
     http.end();
       }else{
         Serial.println("Khong co ket noi Wifi");
-        digitalWrite(LED_BUILTIN,LOW);
+        ErrorLed();
         }
         delay(1000);      
    }
@@ -89,11 +97,13 @@ if((digitalRead(STOP_PIN)==LOW)&&(WiFi.status()==WL_CONNECTED)){
     if (httpCode > 0) {
       String payload = http.getString();
       Serial.println(payload);                     
+    }else{
+      ErrorLed();
     }
     http.end();
       }else{
         Serial.println("Khong co ket noi Wifi");
-        digitalWrite(LED_BUILTIN,LOW);
+        ErrorLed();
         }
         delay(1000);
   }
@@ -108,11 +118,13 @@ if((digitalRead(STOP_PIN)==LOW)&&(WiFi.status()==WL_CONNECTED)){
     if (httpCode > 0) {
       String payload = http.getString();
       Serial.println(payload);
+    }else{
+      ErrorLed();
     }
     http.end();
       }else{
         Serial.println("Khong co ket noi Wifi");
-        digitalWrite(LED_BUILTIN,LOW);
+        ErrorLed();
         }
         delay(1000);
   }
@@ -127,11 +139,13 @@ if((digitalRead(STOP_PIN)==LOW)&&(WiFi.status()==WL_CONNECTED)){
     if (httpCode > 0) {
       String payload = http.getString();
       Serial.println(payload);                 
+    }else{
+      ErrorLed();
     }
     http.end();
       }else{
         Serial.println("Khong co ket noi Wifi");
-        digitalWrite(LED_BUILTIN,LOW);
+        ErrorLed();
         }
         delay(1000);
   }
